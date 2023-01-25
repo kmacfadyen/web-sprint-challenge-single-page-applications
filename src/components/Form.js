@@ -1,24 +1,51 @@
-import { toHaveFormValues } from '@testing-library/jest-dom/dist/matchers';
+import { toHaveErrorMessage, toHaveFormValues } from '@testing-library/jest-dom/dist/matchers';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import App from '../App';
+
+
+
 
 const Form = (props) => {
+
+  const { form, submit, change, errors } = props;
+console.log('value', props);
+//   console.log(useParams());
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    submit();
+}
 
     const onChange = event => {
         // const { name, value } = event.target;
         const { name, value, type, checked } = event.target;
         // const { type, checked } = event.target;
 
+        // setForm({ ...form, [name]: value });
+
+
         const valueToUse = type === 'checkbox' ? checked : value
-        change(name, value);
+        change(name, valueToUse);
     }
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        submit();
-    }
+    
 
   return (
-    <Form id='pizza-form' onSubmit={handleSubmit}>
+    <form id='pizza-form' onSubmit={handleSubmit}>
+        <p>{errors.name}</p>
+        <div className='name-input'>
+            <label><p>Name: </p>
+              <input
+                name='name'
+                id='name-input'
+                type='text'
+                value={form.name}
+                onChange={onChange}
+              />
+            </label>
+        </div>
 
         <div className='size-dropdown'>
             <label><p>Choice of Size</p></label>
@@ -26,7 +53,7 @@ const Form = (props) => {
                 name='size'
                 id='size-dropdown'
                 onChange={onChange}
-                value={values.size}
+                value={form.size}
             >
               <option value='Small'>Small</option>
               <option value='Medium'>Medium</option>
@@ -82,7 +109,7 @@ const Form = (props) => {
             <input
               type='checkbox'
               name='pepperoni'
-              checked={values.pepperoni}
+              checked={form.pepperoni}
               onChange={onChange}
             />
             </label>
@@ -90,7 +117,7 @@ const Form = (props) => {
             <input
               type='checkbox'
               name='sausage'
-              checked={values.sausage}
+              checked={form.sausage}
               onChange={onChange}
             />
             </label>
@@ -98,7 +125,7 @@ const Form = (props) => {
             <input
               type='checkbox'
               name='onions'
-              checked={values.onions}
+              checked={form.onions}
               onChange={onChange}
             />
             </label>
@@ -106,7 +133,7 @@ const Form = (props) => {
             <input
               type='checkbox'
               name='cheese'
-              checked={values.cheese}
+              checked={form.cheese}
               onChange={onChange}
             />
             </label>
@@ -118,8 +145,9 @@ const Form = (props) => {
             <label>
               <input
                 type='text'
+                id='special-text'
                 name='special'
-                value={values.special}
+                value={form.special}
                 onChange={onChange}
               />
             </label>
@@ -128,17 +156,8 @@ const Form = (props) => {
         <button className='btn btn-default' type='submit'>
             Add to Order
         </button>
-    </Form>
+    </form>
   )
-
-
-
-
-
-
-
-
-
 }
 
 export default Form;
