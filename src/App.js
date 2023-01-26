@@ -119,3 +119,6 @@ const changeHandler = ( name, value) => {
   );
 }
 export default App;
+
+
+// Added note
