@@ -38,8 +38,8 @@ const [ formErrors, setFormErrors ] = useState(initialFormErrors);
 
 
 
-const handleSubmit1 = testOrder => {
-  axios.post('https://reqres.in/api/orders', testOrder)
+const handleSubmit1 = newPizza => {
+  axios.post('https://reqres.in/api/orders', newPizza)
   .then(res => {
     setOrders([ res.data, ...orders ]);
     // console.log(res.data);
@@ -64,13 +64,13 @@ const validation = (name, value) => {
 }
 
 const submitter = () => {
-  const pizzaOrder = {
+  const newPizza = {
     name: form.name.trim(),
     size: form.size.trim(),
     toppings: ['pepperoni', 'sausage', 'onions', 'cheese'],
     special: form.special.trim()
   }
-  handleSubmit1(pizza);
+  handleSubmit1(newPizza);
 }
 
 const changeHandler = ( name, value) => {

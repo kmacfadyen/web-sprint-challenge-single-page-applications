@@ -153,7 +153,7 @@ console.log('value', props);
             </label>
         </div>
 
-        <button className='btn btn-default' type='submit'>
+        <button className='btn btn-default' type='submit' id='order-button'>
             Add to Order
         </button>
     </form>
